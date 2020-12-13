@@ -71,3 +71,12 @@ fileURLs: '\(self.fileURLs ?? [])'
 """
     }
 }
+
+extension PasteboardItem: Equatable {
+    static func == (lhs: PasteboardItem, rhs: PasteboardItem) -> Bool {
+        lhs.string == rhs.string
+            && lhs.URL == rhs.URL
+            && lhs.fileURL == rhs.fileURL
+            && lhs.fileURLs == rhs.fileURLs
+    }
+}

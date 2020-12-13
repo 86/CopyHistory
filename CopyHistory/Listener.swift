@@ -30,7 +30,21 @@ final class Listener {
             pasteboard: pasteboard,
             types: pasteboard.types ?? []
         )
+        insertItem(newItem)
+    }
+
+    private func insertItem(_ newItem: PasteboardItem) {
         self.items.insert(newItem, at: 0)
+        if self.items.count > 1 {
+            let rest = self.items.dropFirst()
+            for (offset, item) in rest.enumerated() {
+                guard item == newItem else {
+                    continue
+                }
+                self.items.remove(at: rest.startIndex + offset)
+                break
+            }
+        }
         if self.items.count > 100 {
             self.items.removeLast()
         }
